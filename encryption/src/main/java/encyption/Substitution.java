@@ -1,4 +1,4 @@
-package encyptionTypes;
+package encyption;
 
 
 import java.util.ArrayList;
@@ -8,18 +8,17 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Substitution {
+public class Substitution implements Cipher{
 	
 	private StringBuilder alphaKey = new StringBuilder(26);
 	private Map<Character, Character> keyMap = new HashMap<>();
-	List<Character> alphabet = new ArrayList<>();
+	private List<Character> alphabet = new ArrayList<>();
 	
 	public StringBuilder getAlphaKey() {
-		
 		return this.alphaKey;
 	}
 	
-	public void generateMap() {
+	public void generateKey() {
 		
 		for (int i=0; i < 26; i++) {
 			alphabet.add((char)(97+i));
@@ -37,9 +36,12 @@ public class Substitution {
 		}
 	}
 	
-	public StringBuilder encrypt(String text) {
+	public String encrypt(String text) {
 		
-		generateMap();
+		if (text == null || text.isEmpty() || text.isEmpty()) {
+			return "Text is required";
+		}
+		generateKey();
 		StringBuilder encrypted = new StringBuilder();
 		
 		for (int i=0; i < text.length(); i++) {
@@ -61,6 +63,6 @@ public class Substitution {
 			}
 		}
 		
-		return encrypted;
+		return encrypted.toString();
 	}
 }

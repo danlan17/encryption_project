@@ -1,21 +1,34 @@
-package encyptionTypes;
+package encyption;
 
 import java.util.Random;
 
-public class Caesar {
+public class Caesar implements Cipher{
 	
-	public int generateKey() {
-		Random r = new Random();
-		int key = r.nextInt(27);
-		return key;
+	private int key;
+	
+	public void setKey(int key) {
+		if (key == 00) {
+			generateKey();
+		}
+		else {
+			this.key = key;
+		}
 	}
 	
-	public String encrypt(String text, int key) {
+	public int getKey() {
+		return this.key;
+	}
+	
+	public void generateKey() {
+		Random r = new Random();
+		this.key = r.nextInt(27);	 
+	}
+	
+	public String encrypt(String text) {
 		
-		if (text == null || text.isEmpty()) {
+		if (text == null || text.isEmpty() || text.isEmpty()) {
 			return "Text is required";
 		}
-		
 		StringBuilder newStr = new StringBuilder();
 		
 		for (int i=0; i < text.length(); i++) {
