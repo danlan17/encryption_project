@@ -23,13 +23,16 @@ public class RheaSpeak {
 				+ "using the cipher method of your choice!");
 		
 		while (true) {
+			
 			 String choice = menu.getChoice(MAIN_MENU);
 			 
 			 if (choice.equals("Encrypt A New Message")) {
+				 
 				 menu.getMessage();
 				 String selection = "";
 				 
 				 while (!selection.equals("Back")) {
+					 
 					selection = menu.getChoice(CIPHER_OPTIONS);
 					
 					if (!selection.equals("Back")) {
@@ -38,11 +41,11 @@ public class RheaSpeak {
 				 }
 			 }
 			 else if (choice.equals("Exit")) {
-				 break;
+				 
+				 System.out.println("\nThank you for using RheaSpeak!");
+				 System.exit(0);
 			 }
 		}
-		
-		System.out.println("\nThank you for using RheaSpeak!");
 	}
 
 	public static void main(String[] args) {

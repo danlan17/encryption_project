@@ -27,7 +27,6 @@ public class Menu {
 			displayOptions(options);
 			choice = userChoice(options);
 		}
-		
 		return choice;
 	}
 	
@@ -56,6 +55,7 @@ public class Menu {
 		}
 		catch (NumberFormatException e) {
 		}
+		
 		if (choice == null) {
 			System.out.println("\nInvalid Option");
 		}
@@ -67,11 +67,13 @@ public class Menu {
 		String message = null;
 		
 		while (message == null || message.isEmpty() || message.isBlank()) {
+			
 			System.out.println("\nPlease enter the message you would like to encrypt: ");
 			message = in.nextLine();
 		}
 		this.message = message;
 		System.out.println("\nMessage Successfully Entered");
+		System.out.println("\nWhich cipher method would you like to use?");
 		
 	}
 	
@@ -86,6 +88,7 @@ public class Menu {
 	public void callCipher(String selection) {
 		
 		if (selection.equals("Caesar")) {
+			
 			Caesar caesar = new Caesar();
 			System.out.print("\nPlease enter a key as an integer or enter '00' and we'll "
 					+ "generate one for you!\n");
@@ -112,6 +115,7 @@ public class Menu {
 			displayEncrypted(encrypted, String.valueOf(userKey));
 		}
 		else if (selection.equals("Substitution")) {
+			
 			Substitution sub = new Substitution();
 			String encrypted = sub.encrypt(this.message);
 			String userKey = sub.getAlphaKey().toString() + "\n          abcdefghijklmnopqrstuvwxyz";

@@ -17,6 +17,9 @@ public class Substitution implements Cipher{
 	public StringBuilder getAlphaKey() {
 		return this.alphaKey;
 	}
+	public Map<Character, Character> getKeyMap() {
+		return this.keyMap;
+	}
 	
 	public void generateKey() {
 		
