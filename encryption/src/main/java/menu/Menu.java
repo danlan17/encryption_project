@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import encyption.Caesar;
 import encyption.Substitution;
+import encyption.Vigenere;
 
 public class Menu {
 
@@ -57,7 +58,8 @@ public class Menu {
 		}
 		
 		if (choice == null) {
-			System.out.println("\nInvalid Option");
+			out.println("\nInvalid Option");
+			out.flush();
 		}
 		return choice;
 	}
@@ -68,21 +70,22 @@ public class Menu {
 		
 		while (message == null || message.isEmpty() || message.isBlank()) {
 			
-			System.out.println("\nPlease enter the message you would like to encrypt: ");
+			out.println("\nPlease enter the message you would like to encrypt: ");
+			out.flush();
 			message = in.nextLine();
 		}
 		this.message = message;
-		System.out.println("\nMessage Successfully Entered");
-		System.out.println("\nWhich cipher method would you like to use?");
-		
+		out.println("\nMessage Successfully Entered");
+		out.flush();
 	}
 	
 	private void displayEncrypted(String encrypted, String key) {
 		
-		System.out.println("\nMessage");
-		System.out.println("-----------------------\n");
-		System.out.println(encrypted + "\n\nYour key: " + key);
-		System.out.println("-----------------------");
+		out.println("\nMessage");
+		out.println("-----------------------\n");
+		out.println(encrypted + "\n\nYour key: " + key);
+		out.println("-----------------------");
+		out.flush();
 	}
 	
 	public void callCipher(String selection) {
@@ -90,8 +93,9 @@ public class Menu {
 		if (selection.equals("Caesar")) {
 			
 			Caesar caesar = new Caesar();
-			System.out.print("\nPlease enter a key as an integer or enter '00' and we'll "
+			out.print("\nPlease enter a key as an integer or enter '00' and we'll "
 					+ "generate one for you!\n");
+			out.flush();
 			
 			boolean valid = false;
 			int key = 0;
@@ -102,12 +106,12 @@ public class Menu {
 					valid = true;
 				}
 				catch (NumberFormatException ex) {
-				}
-				if (!valid) {
-					System.out.println("\nInvalid Key");
+					out.println("\nInvalid Key");
+					out.flush();
 				}
 			}
-			System.out.println("\nKey Successfully Entered");
+			out.println("\nKey Successfully Entered");
+			out.flush();
 			
 			caesar.setKey(key);
 			int userKey = caesar.getKey();
@@ -118,7 +122,46 @@ public class Menu {
 			
 			Substitution sub = new Substitution();
 			String encrypted = sub.encrypt(this.message);
-			String userKey = sub.getAlphaKey().toString() + "\n          abcdefghijklmnopqrstuvwxyz";
+			String userKey = sub.getAlphaKey().toString().toUpperCase() + "\n          ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			displayEncrypted(encrypted, userKey);
+		}
+		else if (selection.equals("Vigenere")) {
+			
+			out.println("\nNote: all non-alphabet characters and spaces will be removed from original message");
+			out.flush();
+			
+			Vigenere vig = new Vigenere();
+			String formattedMessage = vig.formatMessage(this.message);
+			String userKey = null;
+			boolean auto = false;
+			
+			while (userKey == null || userKey.isEmpty() || userKey.isBlank()) {
+				out.println("\nPlease enter a word or string of letters as a key. Or enter '00' "
+						+ "and we'll generate one for you! (Note: non-alphabet characters and spaces "
+						+ "will be removed from the key)\n");
+				out.flush();
+				
+				String input = in.nextLine();
+				
+				if (input.equals("00")) {
+					vig.generateKey();
+					userKey = vig.getKey();
+					auto = true;
+				}
+				else if (!input.matches(".*[A-Za-z]+.*")) {
+					out.println("\nKey must have at least one alphabet character.");
+					userKey = null;
+				}
+				else {
+					userKey = input;
+				}		
+			}
+			
+			if (!auto) {
+				userKey = vig.formatKey(userKey, formattedMessage);
+			}
+		
+			String encrypted = vig.encrypt(formattedMessage);
 			displayEncrypted(encrypted, userKey);
 		}
 	}

@@ -21,6 +21,7 @@ public class Substitution implements Cipher{
 		return this.keyMap;
 	}
 	
+	@Override
 	public void generateKey() {
 		
 		for (int i=0; i < 26; i++) {
@@ -39,6 +40,7 @@ public class Substitution implements Cipher{
 		}
 	}
 	
+	@Override
 	public String encrypt(String text) {
 		
 		if (text == null || text.isEmpty() || text.isEmpty()) {

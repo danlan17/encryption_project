@@ -10,7 +10,7 @@ import menu.Menu;
 public class RheaSpeak {
 	
 	private String[] MAIN_MENU = {"Encrypt A New Message", "Exit"};
-	private String[] CIPHER_OPTIONS = {"Caesar", "Substitution", "Back"};
+	private String[] CIPHER_OPTIONS = {"Caesar", "Substitution", "Vigenere", "Back"};
 	private Menu menu;
 	
 	public RheaSpeak(Menu menu) {
@@ -29,6 +29,7 @@ public class RheaSpeak {
 			 if (choice.equals("Encrypt A New Message")) {
 				 
 				 menu.getMessage();
+				 System.out.println("\nWhich cipher method would you like to use?");
 				 String selection = "";
 				 
 				 while (!selection.equals("Back")) {

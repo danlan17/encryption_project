@@ -19,11 +19,13 @@ public class Caesar implements Cipher{
 		return this.key;
 	}
 	
+	@Override
 	public void generateKey() {
 		Random r = new Random();
 		this.key = r.nextInt(27);	 
 	}
 	
+	@Override
 	public String encrypt(String text) {
 		
 		if (text == null || text.isEmpty() || text.isEmpty()) {
